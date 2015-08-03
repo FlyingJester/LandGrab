@@ -5,8 +5,10 @@
     <title>Play Land Grab</title>
     <script src="https://togetherjs.com/togetherjs.js"></script>
     <script src="src/dice.js"></script>
+    <script src="src/test.js"></script>
 </head>
 <body>
+
     <h1>Land Grab</h1>
     <button onclick="TogetherJS(this); return false;">TogetherJS</button>
     
@@ -14,8 +16,8 @@
         Something.
     </p>
     
-    <button onclick="document.getElementById('this_will_change').innerHTML = 'Something';">Something</button>
-    <button onclick="document.getElementById('this_will_change').innerHTML = 'Something Else';">Something Else</button>
+    <button onclick="SomethingChange('Something');">Something</button>
+    <button onclick="SomethingChange('Something Else');">Something Else</button>
     
 </body>
 </html>
