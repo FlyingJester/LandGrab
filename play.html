@@ -4,10 +4,12 @@
     <meta charset="utf-8">
     <title>Play Land Grab</title>
     <script src="https://togetherjs.com/togetherjs.js"></script>
+    <script src="src/for_each.js"></script>
     <script src="src/rng.js"></script>
     <script src="src/dice.js"></script>
     <script src="src/test.js"></script>
     <script src="src/foul.js"></script>
+    <link rel="stylesheet" type="text/css" href="dice.css">
 </head>
 <body>
     
@@ -19,15 +21,19 @@
     </div>
     
     <div id="dice_block">
-    <div id="dice">
-        
-    <div>
+        <div id="D1" class="dice">
+            <img src="img/dice_master.png" class="dice_background"></img>
+        </div>
+        <div id="D2" class="dice">
+            <img src="img/dice_master.png" class="dice_background"></img>
+        </div>
+        <div class="end_dice"></div>
     
     <p id="dice_throw">
         zero and zero. Lolwut?
     </p>
     
-    <button onclick="DiceRoll();">Throw Dice</button>
+    <button onclick="LandGrab.DiceRoll();">Throw Dice</button>
     
     </div>
     
