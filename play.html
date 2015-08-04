@@ -4,17 +4,41 @@
     <meta charset="utf-8">
     <title>Play Land Grab</title>
     <script src="https://togetherjs.com/togetherjs.js"></script>
+    <script src="src/rng.js"></script>
     <script src="src/dice.js"></script>
     <script src="src/test.js"></script>
+    <script src="src/foul.js"></script>
 </head>
 <body>
-
+    
+    <div id="banner">
+    
     <h1>Land Grab</h1>
     <button onclick="TogetherJS(this); return false;">TogetherJS</button>
     
-    <p id="this_will_change">
-        Something.
+    </div>
+    
+    <div id="dice_block">
+    <div id="dice">
+        
+    <div>
+    
+    <p id="dice_throw">
+        zero and zero. Lolwut?
     </p>
+    
+    <button onclick="DiceRoll();">Throw Dice</button>
+    
+    </div>
+    
+    <div id="player_list">
+    <h3>Players</h3>
+        
+        
+        
+    </div>
+    
+    <button onclick="LandGrab.CallFoul('Z');">Cry Wolf</button>
     
     <button onclick="SomethingChange('Something');">Something</button>
     <button onclick="SomethingChange('Something Else');">Something Else</button>
