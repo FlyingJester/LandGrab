@@ -1,55 +1,88 @@
 if(typeof LandGrab=="undefined")
     LandGrab = {};
 
-LandGrab.whose_turn = null;
+LandGrab.whose_turn_id = null;
 
-LandGrab.SetTurn = function(){
+LandGrab.turn_order = [];
 
-}
+LandGrab.UpdateTurnOrderList = function(){}
 
 LandGrab.StartMyTurn = function(){
-
+    
+    document.getElementById("dice_button").disabled = false;
 }
 
 LandGrab.EndMyTurn = function(){
-
-}
-
-LandGrab.TurnClientID = function(){
-    for(var i in LandGrab.players){
-        if(i.name==LandGrab.whose_turn){
-            return i.clientID;
-        }
-    };
+    if(LandGrab.whose_turn_id!=LandGrab.peers.Self.id)
+        alert("Assertion Failure: It must be your turn to end your turn.");
     
-    return null;
+    document.getElementById("dice_button").disabled = true;
+    
+    TogetherJS.send({"type":"endTurn"});
+    
+    LandGrab.NextTurn();
+    
 }
 
-LandGrab.AskWhoseTurn() = function(){
+LandGrab.NextTurn = function(){
+    var index = LandGrab.turn_order.indexOf(LandGrab.whose_turn_id);
+    var next_index = (index+1) % LandGrab.turn_order.length;
+    
+    LandGrab.whose_turn_id = LandGrab.turn_order[next_index];
+    
+    if(LandGrab.whose_turn_id==LandGrab.peers.Self.id)
+        StartMyTurn();
+    
+}
+
+LandGrab.AskWhoseTurn = function(){
     TogetherJS.send({"type":"askWhoseTurn"});
 }
 
-LandGrab.SayWhoseTurn() = function(){
-    TogetherJS.send({"type":"sayWhoseTurn", "who":LandGrab.whose_turn});
+LandGrab.SayWhoseTurn = function(){
+    if(LandGrab.whose_turn_id)
+        TogetherJS.send({"type":"sayWhoseTurn", "who_id":LandGrab.whose_turn_id});
 }
+
+TogetherJS.hub.on("endTurn", function(msg){
+    if(msg.clientID!=LandGrab.whose_turn_id || LandGrab.whose_turn_id==LandGrab.peers.Self.id){
+        LandGrab.CallFoul(msg.clientID);
+    }
+    
+    LandGrab.NextTurn();
+    
+    LandGrab.UpdateTurnOrderList();
+    
+});
 
 TogetherJS.hub.on("askWhoseTurn", function(msg){
     LandGrab.SayWhoseTurn();
 });
 
 TogetherJS.hub.on("sayWhoseTurn", function(msg){
-    LandGrab.whose_turn = msg.who;
+    
+    var name = LandGrab.peers.getPeer(msg.who_id).name;
+    
+    if(LandGrab.whose_turn_id != msg.who_id)
+        alert("Apparently, it's " + ((name && name!="null")?name:msg.who_id) + "'s turn.");
+    LandGrab.whose_turn_id = msg.who_id;
 });
 
-LandGrab.OnReadyCallbacks = LandGrab.OnReadyCallbacks || [];
-LandGrab.OnReadyCallbacks.push(
-    function(){
-        LandGrab.whose_turn = LandGrab.me.name;
-        LandGrab.AskWhoseTurn();
-    }
-);
+LandGrab.InitTurn = function(){
+    if(typeof LandGrab.peers == "undefined")
+        LandGrab.peers = TogetherJS.require('peers');
+
+    LandGrab.whose_turn_id = LandGrab.peers.Self.id;
+    LandGrab.AskWhoseTurn();
+}
+
+if(typeof LandGrab.OnReadyCallbacks == "undefined")
+    LandGrab.OnReadyCallbacks = [];
+
+LandGrab.OnReadyCallbacks.push(LandGrab.InitTurn);
 
 //TODO For testing purposes.
 TogetherJS.on("ready", function(){
     LandGrab.OnReadyCallbacks.forEach(function(i){ i(); });
 });
+

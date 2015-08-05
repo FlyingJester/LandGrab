@@ -85,7 +85,9 @@ LandGrab.TransmitPlayerList = function(){
     TogetherJS.send({"type":"announcePlayers", "players":players});
 }
 
-LandGrab.OnReadyCallbacks = LandGrab.OnReadyCallbacks || [];
+if(typeof LandGrab.OnReadyCallbacks == "undefined")
+    LandGrab.OnReadyCallbacks = [];
+
 LandGrab.OnReadyCallbacks.push(
     function(){
         LandGrab.SetMe("UnsetName" + ((Math.random() * (1<<16))>>0), false);
@@ -93,6 +95,10 @@ LandGrab.OnReadyCallbacks.push(
         LandGrab.TransmitPlayerList();
         // Ask for everbody else
         LandGrab.AskForPlayerLists();
+        
+        // Particularly for the first player, this must be done after LandGrab.me is set.
+        // For simplicity, we just call it right here to ensure that SetMe was called.
+        LandGrab.InitTurn();
     }
 );
 
