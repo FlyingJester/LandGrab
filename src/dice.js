@@ -3,17 +3,24 @@ if(typeof LandGrab=="undefined")
 
 // Prototype. No worries about malicious clients.
 
+LandGrab.default_dot_size = 6;
+LandGrab.default_dot_margin = 4;
+LandGrab.default_dice_width = 32;
+LandGrab.default_dice_height = LandGrab.default_dice_width;
+
 LandGrab.PositionDot = function(dot, p){
     dot.style.position = "absolute";
     dot.style.top = p.y+"px";
     dot.style.left = p.x+"px";
+    dot.style.width = LandGrab.default_dot_size+"px";
+    dot.style.height = LandGrab.default_dot_size+"px";
 }
 
 LandGrab.GenerateDotPositions = function(n, m, w, h, s){
-    if(typeof m == "undefined") m = 4;
-    if(typeof w == "undefined") w = 32;
-    if(typeof h == "undefined") h = 32;
-    if(typeof s == "undefined") s = 8;
+    if(typeof m == "undefined") m = LandGrab.default_dot_margin;
+    if(typeof w == "undefined") w = LandGrab.default_dice_width;
+    if(typeof h == "undefined") h = LandGrab.default_dice_height;
+    if(typeof s == "undefined") s = LandGrab.default_dot_size;
     
     var dots = [];
     
@@ -90,7 +97,7 @@ LandGrab.SetDice = function(D1, D2){
 
 TogetherJS.hub.on("diceRoll", function(msg){
     
-    SetDice(msg.D1, msg.D2);
+    LandGrab.SetDice(msg.D1, msg.D2);
     
 });
 
