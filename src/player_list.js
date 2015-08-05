@@ -93,7 +93,7 @@ LandGrab.OnReadyCallbacks.push(
         LandGrab.TransmitPlayerList();
         // Ask for everbody else
         LandGrab.AskForPlayerLists();
-}
+    }
 );
 
 //TODO For testing purposes.
