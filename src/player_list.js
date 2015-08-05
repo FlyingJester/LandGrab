@@ -85,11 +85,18 @@ LandGrab.TransmitPlayerList = function(){
     TogetherJS.send({"type":"announcePlayers", "players":players});
 }
 
+LandGrab.OnReadyCallbacks = LandGrab.OnReadyCallbacks || [];
+LandGrab.OnReadyCallbacks.push(
+    function(){
+        LandGrab.SetMe("UnsetName" + ((Math.random() * (1<<16))>>0), false);
+        // Announce ourselves
+        LandGrab.TransmitPlayerList();
+        // Ask for everbody else
+        LandGrab.AskForPlayerLists();
+}
+);
+
 //TODO For testing purposes.
 TogetherJS.on("ready", function(){
-    LandGrab.SetMe("UnsetName" + ((Math.random() * (1<<16))>>0), false);
-    // Announce ourselves
-    LandGrab.TransmitPlayerList();
-    // Ask for everbody else
-    LandGrab.AskForPlayerLists();
+    LandGrab.OnReadyCallbacks.forEach(function(i){ i(); });
 });
