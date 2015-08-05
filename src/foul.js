@@ -19,7 +19,7 @@ function AlertFoul(other, who){
 }
 
 LandGrab.CallFoul = function(other){
-    TogetherJS.send({"type":"callFoul", "who":"NULL"});
+    TogetherJS.send({"type":"callFoul", "who":((LandGrab.me)?LandGrab.me.name:"<NULL>")});
     AlertFoul(other);
     
 }
