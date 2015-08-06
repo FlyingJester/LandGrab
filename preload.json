@@ -1,4 +1,4 @@
 [
-    {"type":"img", "address":"img/dot_master.png"},
-    {"type":"img", "address":"img/dice_master.png"}
+    {"type":"img", "src":"img/dot_master.png"},
+    {"type":"img", "src":"img/dice_master.png"}
 ]
