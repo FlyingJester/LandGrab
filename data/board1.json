@@ -1,0 +1,31 @@
+{
+    "name"        : "Test Board",
+    "description" : "A duck walks into a pharmacy and says 'I need something for my beak, it's very chapped', and the pharmacist says 'We have nothing for ducks here'.",
+    "tile_width"  : 100,
+    "tile_height" : 160,
+    "tiles"       : [
+        {"name":"Start", "type":"corner"},
+        
+        {"name":"A Bird in the Hand"},
+        {"name":"Duck with an Onion"},
+        {"name":"Birds of a Feather"},
+        
+        {"name":"The Clink", "type":"corner"},
+        
+        {"name":"A Stitch in Time"},
+        {"name":"A Rolling Stone"},
+        {"name":"Blame the controller"},
+        
+        {"name":"The Graveyard", "type":"corner"},
+        
+        {"name":"Fortune Favors the Bold"},
+        {"name":"Ignorance is Bliss"},
+        {"name":"If the Shoe Fits"},
+                
+        {"name":"goto clink;", "type":"corner"},
+        
+        {"name":"It's just a dream"},
+        {"name":"Unbottle the halo"},
+        {"name":"All good things have to go"}
+    ]
+}
