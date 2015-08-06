@@ -2,11 +2,10 @@
 #board {
     float:left;
     position:relative;
-    width:600px;
+    width:620px;
     height:600px;
     margin:10pt;
     margin-left:0px;
-    padding:10pt;
     background-color:lightblue;
     display:inline-block;
 }
@@ -14,4 +13,18 @@
 #sidebar {
     float:left;
     position:relative;
+}
+
+.right_side_spacez {
+    -moz-transform: translateY(50%) rotate(0.25turn);
+      -o-transform: rotate(90deg);
+ -webkit-transform: rotate(90deg);
+        -ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=1.6203)";
+}
+
+.left_side_spacez {
+    -moz-transform: translateY(50%) rotate(-0.25turn);
+      -o-transform: rotate(270deg);
+ -webkit-transform: rotate(270deg);
+        -ms-filter:"progid:DXImageTransform.Microsoft.BasicImage(rotation=4.7618)";
 }

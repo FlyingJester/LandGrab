@@ -13,7 +13,8 @@ LandGrab.GetRandomColor = function(){
 }
 
 LandGrab.OnBoardLoad = function(){
-    var board = JSON.parse(this.responseText);
+    LandGrab.board = JSON.parse(this.responseText);
+    var board = LandGrab.board;
     
     var board_element = document.getElementById("board");
     
@@ -26,7 +27,8 @@ LandGrab.OnBoardLoad = function(){
     while(board_element.childNodes.length){
         board_element.childNodes[0].remove();
     }
-
+    
+    // One for each of the sides of the board
     var transformations = [
         function(i){ i.y++; },
         function(i){ i.x--; },
@@ -34,37 +36,69 @@ LandGrab.OnBoardLoad = function(){
         function(i){ i.x++; }
     ];
     
-    var which_transformation = 0;
-    
-    var position = {"x":number_on_side, "y":0};
+    var space_classes = [
+        "right_side_space",
+        "bottom_side_space",
+        "left_side_space",
+        "top_side_space"
+    ];
 
+    var sizes = [
+        {"w":board.tile_height, "h":board.tile_width },
+        {"w":board.tile_width,  "h":board.tile_height},
+        {"w":board.tile_height, "h":board.tile_width },
+        {"w":board.tile_width,  "h":board.tile_height}    
+    ];
+    
+    var which = 0;
+    var position = {"x":number_on_side, "y":0};
+    var max_position = {"x":0, "y":0};
+    
+    var corner_offset = (board.tile_height-board.tile_width);
+    
     board.tiles.forEach(function(i, e){
-        if((e % number_on_side) == 0){
-            // Draw a corner.
-        }
         
         // Create the space.
         {
             var space = document.createElement('div');
             space.style.position = "absolute";
-            space.style.top = (position.y * board.tile_width)+"px";
-            space.style.left = (position.x * board.tile_width)+"px";
-            space.style.width =  board.tile_width+"px";
-            space.style.height =  board.tile_width+"px";
+            space.style.top = (position.y * board.tile_width+((position.y)?corner_offset:0))+"px";
+            space.style.left = (position.x * board.tile_width+((position.x)?corner_offset:0))+"px";
+            if((e % number_on_side) == 0){
+                // Draw a corner.
+                space.style.width =  board.tile_height+"px";
+                space.style.height =  board.tile_height+"px";
+            }
+            else{
+                // Just a space.
+                space.style.width =  sizes[which].w + "px";
+                space.style.height =  sizes[which].h + "px";
+            }
             space.style.backgroundColor = LandGrab.GetRandomColor();
             space.className = 'space';
+            space.id = "space_" + e;
             board_element.appendChild(space);
+            
+            var space_title = document.createElement('p');
+            //space_title.className = space_classes[which];
+            space_title.innerHTML = i.name;
+            space_title.style.textAlign ="center";
+            space.appendChild(space_title);
         }
         
         e++;
-        transformations[which_transformation](position);
+        transformations[which](position);
+        
+        max_position.y = Math.max(position.y, max_position.y);
+        max_position.x = Math.max(position.x, max_position.x);
         
         if((e % number_on_side) == 0)
-            which_transformation++;
+            which++;
         
     });
     
-        
+//    board_element.style.width  = max_position.x + "px";
+//    board_element.style.height = max_position.y + "px";    
     
 }
 
