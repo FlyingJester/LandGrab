@@ -1,3 +1,5 @@
+
+(function(){
 var PreloadJS = {
     src:null,
     init:function(){
@@ -5,13 +7,13 @@ var PreloadJS = {
         request.responseType = "text";
         request.overrideMimeType("text/plain");
         
-        request.open("get", "preload.json", true);
+        request.open("get", "data/preload.json", true);
         
         
         request.onload = function(e){
             if(request.readyState===4){
                 if(request.status==200){
-                    PreloadJS.src = JSON.parse(request.responseText);
+                    PreloadJS.src = JSON.parse(this.responseText);
                     PreloadJS.load();
                 }
                 else{
@@ -49,3 +51,4 @@ var PreloadJS = {
 };
 
 PreloadJS.init();
+})();

@@ -74,7 +74,7 @@ LandGrab.SetDice = function(D1, D2){
             var child = DiceElement.childNodes[i];
 
             if(child.className=='dice_dot')
-                DiceElement.removeChild(child);
+                child.remove();
             else
                 i++;
         }
