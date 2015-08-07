@@ -9,7 +9,7 @@ TogetherJS.hub.on("callFoul", function(msg){
 
 LandGrab.AlertFoul = function(evildoer, reporter){
 
-    alert(
+    LandGrab.View.alert(
         (
             (reporter)?
             (reporter + " thinks"):

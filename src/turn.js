@@ -14,7 +14,7 @@ LandGrab.StartMyTurn = function(){
 
 LandGrab.EndMyTurn = function(){
     if(LandGrab.whose_turn_id!=LandGrab.peers.Self.id)
-        alert("Assertion Failure: It must be your turn to end your turn.");
+        LandGrab.View.alert("Assertion Failure: It must be your turn to end your turn.");
     
     document.getElementById("dice_button").disabled = true;
     
@@ -68,7 +68,7 @@ TogetherJS.hub.on("sayWhoseTurn", function(msg){
     var name = LandGrab.peers.getPeer(msg.who_id).name;
     
     if(LandGrab.whose_turn_id != msg.who_id)
-        alert("Apparently, it's " + ((name && name!="null")?name:msg.who_id) + "'s turn.");
+        LandGrab.View.alert("Apparently, it's " + ((name && name!="null")?name:msg.who_id) + "'s turn.");
 
     while(LandGrab.whose_turn_id!=LandGrab.peers.Self.id){
         LandGrab.NextTurn();

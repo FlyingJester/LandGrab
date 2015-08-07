@@ -205,7 +205,9 @@ LandGrab.HTMLView = {
         board.tiles.forEach(this._board._tileDraw , that);
 
         
-    }
+    },
+    
+    "alert":function(a){alert(a);},
     
 };
 
