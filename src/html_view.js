@@ -3,21 +3,35 @@ if(typeof LandGrab=="undefined")
 
 // Layout for the View object.
 LandGrab.NullView = {
+    clearPlayers:function(){},
     appendPlayer:function(name, observ){},
     setDice:function(D1, D2){}
 };
 
 LandGrab.HTMLView = {
     
-    appendPlayer:function(name, observ){
+    _players:{_number_players:0},
     
+    clearPlayers:function(){
+        this._players._number_players = 0;
+        var player_list = document.getElementById('player_list');
+        
+        while(player_list.childNodes.length)
+            player_list.childNodes[0].remove();
+    },
+    
+    appendPlayer:function(name, observ){
+        
+        ++(this._players._number_players);
+        
         if(typeof observ == "undefined")
             observ = true;
     
         var new_player = document.createElement('li');
         new_player.innerHTML = name;
         if(observ){
-            new_player.backgroundColor = 'lightgray';
+            
+            new_player.style.backgroundColor = (this._players._number_players%2)?'#D3D3D3':'#B0B0B0';
         }
         
         document.getElementById('player_list').appendChild(new_player);
