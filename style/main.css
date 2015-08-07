@@ -1,0 +1,24 @@
+
+body {
+    background-color:#F5EAE0;
+    color:#644826;
+}
+
+#player_block{
+    border:solid;
+    margin-right:10pt;
+}
+
+#player_block h3 {
+    padding-left:10pt;
+}
+
+#player_list{
+    background-color:#CB934E;
+    color:#644826;
+    overflow-y:auto;
+    list-style-type:none;
+    height:200px;
+    margin-right:10pt;
+    margin-left:10pt;
+}
