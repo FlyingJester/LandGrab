@@ -74,7 +74,22 @@ LandGrab.OnBoardLoad = function(){
                 space.style.width =  sizes[which].w + "px";
                 space.style.height =  sizes[which].h + "px";
             }
-            space.style.backgroundColor = LandGrab.GetRandomColor();
+            
+            // Defaults.
+            // DO NOT TRUST THIS TO STAY THE SAME.
+            space.style.fontFamily = "Futura";
+            
+            // True, we only get color and backgroundColor on old browsers.
+            // This will be standard in ES6.
+            if(typeof i.style == "object" && typeof Object.assign == "function"){
+                Object.assign(space.style, i.style);
+            }
+
+            if(typeof i.color != "undefined")
+                space.style.color = i.color;
+            if(typeof i.backgroundColor != "undefined")
+                space.style.backgroundColor = i.backgroundColor;
+
             space.className = 'space';
             space.id = "space_" + e;
             board_element.appendChild(space);
@@ -96,9 +111,6 @@ LandGrab.OnBoardLoad = function(){
             which++;
         
     });
-    
-//    board_element.style.width  = max_position.x + "px";
-//    board_element.style.height = max_position.y + "px";    
     
 }
 

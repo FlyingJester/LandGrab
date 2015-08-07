@@ -4,28 +4,48 @@
     "tile_width"  : 100,
     "tile_height" : 160,
     "tiles"       : [
-        {"name":"Start", "type":"corner"},
+        {"name":"Start", "type":"corner", "color":"#CC0000", "backgroundColor":"#CCFFFF", 
+            "style":{"fontFamily":"Copperplate", "fontSize":"32pt"}
+        },
         
-        {"name":"A Bird in the Hand"},
-        {"name":"Duck with an Onion"},
-        {"name":"Birds of a Feather"},
+        {"name":"A Bird in the Hand", "color":"#644826", "backgroundColor":"#EC7849"},
         
-        {"name":"The Clink", "type":"corner"},
+        {"name":"Roaring Railroad", "color":"#CCCCCC", "backgroundColor":"#23495B",
+            "style":{}
+        },
         
-        {"name":"A Stitch in Time"},
-        {"name":"A Rolling Stone"},
-        {"name":"Blame the controller"},
+        {"name":"Duck with an Onion", "color":"#644826", "backgroundColor":"#EC7849"},
         
-        {"name":"The Graveyard", "type":"corner"},
+        {"name":"The Clink", "type":"corner", "color":"#EEEEEE", "backgroundColor":"#6CB7A6"},
         
-        {"name":"Fortune Favors the Bold"},
-        {"name":"Ignorance is Bliss"},
-        {"name":"If the Shoe Fits"},
+        {"name":"A Rolling Stone", "color":"#644826", "backgroundColor":"#8376B6"},
+        
+        {"name":"Raiding Railroad", "color":"#CCCCCC", "backgroundColor":"#23495B",
+            "style":{}
+        },
+        
+        {"name":"Blame the controller", "color":"#644826", "backgroundColor":"#8376B6"},
+        
+        {"name":"The Graveyard", "type":"corner", "color":"#889900", "backgroundColor":"#336633", 
+            "style":{"fontFamily":"Fantasy", "fontSize":"22pt"}
+        },
+        
+        {"name":"Fortune Favors the Bold", "color":"#644826", "backgroundColor":"#CCCC00"},
+        
+        {"name":"Raining Railroad", "color":"#CCCCCC", "backgroundColor":"#23495B",
+            "style":{}
+        },
+        
+        {"name":"If the Shoe Fits", "color":"#644826", "backgroundColor":"#CCCC00"},
                 
-        {"name":"goto clink;", "type":"corner"},
+        {"name":"goto clink;", "type":"corner", "color":"#EEEEEE", "backgroundColor":"#99CC66"},
+
+        {"name":"Unbottle the halo", "backgroundColor":"lightblue"},
         
-        {"name":"It's just a dream"},
-        {"name":"Unbottle the halo"},
-        {"name":"All good things have to go"}
+        {"name":"Railing Railroad", "color":"#CCCCCC", "backgroundColor":"#23495B",
+            "style":{}
+        },
+        
+        {"name":"All good things have to go", "backgroundColor":"lightblue"}
     ]
 }
