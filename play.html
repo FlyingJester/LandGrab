@@ -39,6 +39,7 @@
     <script src="src/turn.js"></script>
     <script src="src/foul.js"></script>
     <script src="src/board.js"></script>
+    <script src="src/players.js"></script>
     
     <script src="src/html_view.js"></script>
 
@@ -57,7 +58,7 @@
     
     <div id="sidebar">
     
-    <div id="dice_block">
+    <div id="dice_block" class="sidebar_block">
         <div id="D1" class="dice">
             <img src="img/dice_master.png" class="dice_background"></img>
         </div>
@@ -74,11 +75,16 @@
         
     </div>
     
-    <div id="player_block">
+    <div id="player_block" class="sidebar_block">
     <h3>Players</h3>
         <ul id="player_list">
 
         </ul>
+        
+    <button onclick="LandGrab.RefreshPlayerNames();">Refresh Players</button>
+    <button onclick="LandGrab.SetSelfObserving(true);">Become Observer</button>
+    <button onclick="LandGrab.SetSelfObserving(false);">Become Active</button>
+
     </div>
     
     </div>

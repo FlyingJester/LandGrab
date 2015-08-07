@@ -4,9 +4,16 @@ body {
     color:#644826;
 }
 
-#player_block{
+.sidebar_block{
     border:solid;
-    margin-right:10pt;
+    margin:10pt;
+    margin-left:0px;
+    padding:10pt;
+    width:160px;
+}
+
+#player_block{
+
 }
 
 #player_block h3 {
@@ -17,8 +24,13 @@ body {
     background-color:#CB934E;
     color:#644826;
     overflow-y:auto;
+    overflow-x:auto;
     list-style-type:none;
     height:200px;
-    margin-right:10pt;
-    margin-left:10pt;
+    padding:4pt;
+    text-alignment:left;
+}
+
+#player_list li{
+    text-alignment:left;
 }
