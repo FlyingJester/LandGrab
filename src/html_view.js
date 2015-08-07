@@ -109,6 +109,104 @@ LandGrab.HTMLView = {
         // Set the total/text representation
         document.getElementById('dice_throw').innerHTML = D1 + ", " + D2 + " (" + (D1+D2) + ")";
     }, // setDice
+    
+    // Private data for the Board
+    _board:{
+                
+        // One for each of the sides of the board
+        _transformations:[
+            function(i){ i.y++; },
+            function(i){ i.x--; },
+            function(i){ i.y--; },
+            function(i){ i.x++; }
+        ],
+        _space_classes:[
+            "right_side_space",
+            "bottom_side_space",
+            "left_side_space",
+            "top_side_space"
+        ],
+        _tileDraw:function(i, e){
+            // Create the space.
+            {
+                var space = document.createElement('div');
+                space.style.position = "absolute";
+                space.style.top = (this.position.y * this.board.tile_width+((this.position.y)?this.corner_offset:0))+"px";
+                space.style.left = (this.position.x * this.board.tile_width+((this.position.x)?this.corner_offset:0))+"px";
+                if((e % (this.board.tiles.length/4)) == 0){
+                    // Draw a corner.
+                    space.style.width =  this.board.tile_height+"px";
+                    space.style.height =  this.board.tile_height+"px";
+                }
+                else{
+                    // Just a space.
+                    space.style.width =  this.sizes[this.which].w + "px";
+                    space.style.height =  this.sizes[this.which].h + "px";
+                }
+                
+                // Defaults.
+                // DO NOT TRUST THIS TO STAY THE SAME.
+                space.style.fontFamily = "Futura";
+                
+                // True, we only get color and backgroundColor on old browsers.
+                // This will be standard in ES6.
+                if(typeof i.style == "object" && typeof Object.assign == "function"){
+                    Object.assign(space.style, i.style);
+                }
+
+                if(typeof i.color != "undefined")
+                    space.style.color = i.color;
+                if(typeof i.backgroundColor != "undefined")
+                    space.style.backgroundColor = i.backgroundColor;
+
+                space.className = 'space';
+                space.id = "space_" + e;
+                this.board_element.appendChild(space);
+                
+                var space_title = document.createElement('p');
+                //space_title.className = space_classes[which];
+                space_title.innerHTML = i.name;
+                space_title.style.textAlign ="center";
+                space.appendChild(space_title);
+            }
+            
+            this.transformations[this.which](this.position);
+            
+            if(((e+1) % (this.board.tiles.length/4)) == 0)
+                this.which++;
+        }
+    }, // _board
+    
+    clearBoard:function(){
+        var board_element = document.getElementById("board");
+        while(board_element.childNodes.length){
+            board_element.childNodes[0].remove();
+        }
+    },
+    
+    drawBoard:function(board){
+        
+        var that = {
+            "board":board,
+            "sizes":[
+                {"w":board.tile_height, "h":board.tile_width },
+                {"w":board.tile_width,  "h":board.tile_height},
+                {"w":board.tile_height, "h":board.tile_width },
+                {"w":board.tile_width,  "h":board.tile_height}
+            ],
+            "board_element":document.getElementById("board"),
+            "which":0,
+            "position":{"x":board.tiles.length/4, "y":0},
+            "corner_offset":(board.tile_height-board.tile_width),
+            "transformations":this._board._transformations,
+            "space_classes":this._board._space_classes,
+        };
+        
+        board.tiles.forEach(this._board._tileDraw , that);
+
+        
+    }
+    
 };
 
 LandGrab.View = LandGrab.HTMLView;
