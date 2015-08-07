@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <title>Play Land Grab</title>
-    
+
+    <!-- TogetherJS config. -->
     <script>
         var TogetherJSConfig_siteName = "LandGrab";
         var TogetherJSConfig_dontShowClicks = true;
@@ -11,11 +12,27 @@
         var TogetherJSConfig_ignoreForms = true;
         var TogetherJSConfig_suppressJoinConfirmation = true;
         var TogetherJSConfig_ignoreMessages = ["cursor-update", "keydown", "scroll-update", "peer-update"];
+        
+        function toggleBoard(from){
+            var other = document.getElementById('board'); 
+            var was = other.style.display; 
+            if(was=='none'){
+                other.style.display = 'inline';
+                from.innerHTML = 'Hide Board';
+            }
+            else{
+                other.style.display = 'none';
+                from.innerHTML = 'Show Board';
+            }
+        }
+        
     </script>
     <script src="https://togetherjs.com/togetherjs.js"></script>
     
     <script src="src/for_each.js"></script>
     <script src="src/json2.js"></script>
+    <script src="src/preload.js"></script>
+
     <script src="src/rng.js"></script>
     <script src="src/dice.js"></script>
     <script src="src/test.js"></script>
@@ -23,18 +40,19 @@
     <script src="src/foul.js"></script>
     <script src="src/board.js"></script>
     
-    <script src="src/preload.js"></script>
+    <script src="src/html_view.js"></script>
 
     <link rel="stylesheet" type="text/css" href="style/dice.css">
+    <link rel="stylesheet" type="text/css" href="style/main.css">
     <link rel="stylesheet" type="text/css" href="style/board.css">
     <link rel="stylesheet" type="text/css" href="style/banner.css">
 </head>
-<body style="background-color:#F5EAE0; color:#644826;">
+<body>
     
     <div id="banner">
     <h1>Land Grab</h1>
     <button onclick="TogetherJS(this); return false;">TogetherJS</button>
-    
+    <button onclick="toggleBoard(this);">Hide Board</button>
     </div>
     
     <div id="sidebar">
@@ -56,11 +74,11 @@
         
     </div>
     
-    <div id="player_list">
+    <div id="player_block">
     <h3>Players</h3>
-        
-        
-        
+        <ul id="player_list">
+
+        </ul>
     </div>
     
     </div>

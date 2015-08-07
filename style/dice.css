@@ -14,10 +14,15 @@
     height:40px;
 }
 
+.end_dice{
+    clear:left;
+}
+
 #dice_block {
     margin:10pt;
     margin-left:0px;
     padding:10pt;
     border:solid;
     display:inline-block;
+    width:160px;
 }

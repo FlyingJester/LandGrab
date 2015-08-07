@@ -25,13 +25,17 @@ LandGrab.EndMyTurn = function(){
 }
 
 LandGrab.NextTurn = function(){
+
+    if(LandGrab.whose_turn_id==LandGrab.peers.Self.id)
+        LandGrab.EndMyTurn();
+
     var index = LandGrab.turn_order.indexOf(LandGrab.whose_turn_id);
     var next_index = (index+1) % LandGrab.turn_order.length;
     
     LandGrab.whose_turn_id = LandGrab.turn_order[next_index];
     
     if(LandGrab.whose_turn_id==LandGrab.peers.Self.id)
-        StartMyTurn();
+        LandGrab.StartMyTurn();
     
 }
 
@@ -65,7 +69,11 @@ TogetherJS.hub.on("sayWhoseTurn", function(msg){
     
     if(LandGrab.whose_turn_id != msg.who_id)
         alert("Apparently, it's " + ((name && name!="null")?name:msg.who_id) + "'s turn.");
-    LandGrab.whose_turn_id = msg.who_id;
+
+    while(LandGrab.whose_turn_id!=LandGrab.peers.Self.id){
+        LandGrab.NextTurn();
+    }
+
 });
 
 LandGrab.InitTurn = function(){
@@ -73,6 +81,7 @@ LandGrab.InitTurn = function(){
         LandGrab.peers = TogetherJS.require('peers');
 
     LandGrab.whose_turn_id = LandGrab.peers.Self.id;
+    LandGrab.StartMyTurn();
     LandGrab.AskWhoseTurn();
 }
 
