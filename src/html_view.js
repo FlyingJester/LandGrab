@@ -10,7 +10,17 @@ LandGrab.NullView = {
 
 LandGrab.HTMLView = {
     
-    _players:{_number_players:0},
+    _players:{
+        _number_players:0,
+        _active_colors:['#B87840', '#C08040'],
+        _inactive_colors:['#D3D3D3', '#B0B0B0'],
+        _getActiveColor:function(){
+            return this._active_colors[this._number_players%2];
+        },
+        _getInactiveColor:function(){
+            return this._inactive_colors[this._number_players%2];
+        },
+    },
     
     clearPlayers:function(){
         this._players._number_players = 0;
@@ -30,8 +40,10 @@ LandGrab.HTMLView = {
         var new_player = document.createElement('li');
         new_player.innerHTML = name;
         if(observ){
-            
-            new_player.style.backgroundColor = (this._players._number_players%2)?'#D3D3D3':'#B0B0B0';
+            new_player.style.backgroundColor = this._players._getInactiveColor();
+        }
+        else{
+            new_player.style.backgroundColor = this._players._getActiveColor();
         }
         
         document.getElementById('player_list').appendChild(new_player);
@@ -221,6 +233,106 @@ LandGrab.HTMLView = {
         
     },
     
+    rollForOrderPopup:function(peers, active_ids, onRoll){
+    
+        var screen_width = window.innerWidth
+            || document.documentElement.clientWidth
+            || document.body.clientWidth;
+
+        var screen_height = window.innerHeight
+            || document.documentElement.clientHeight
+            || document.body.clientHeight;
+    
+                /* 42 is the height of the heading */
+                /* 10px borders (double between table and friends) */
+                /* 24 height buttons on bottom */
+        var height = 42 + ((10 * 2) * 2) + (10 * 2) + 24;
+        var width = 400;
+        var popup = document.createElement('div');
+        popup.style.backgroundColor = "#CB934E";
+        popup.style.color  = "#644826";
+        popup.style.position = "fixed";
+        popup.style.height = height + "px";
+        popup.style.width  = width  + "px";
+        popup.style.top    = ((screen_height - height)>>1) + "px";
+        popup.style.left   = ((screen_width - width)>>1) + "px";
+        
+        { // Generate Titlebar
+            var titlebar = document.createElement('div');
+            titlebar.style.margin = "10px";
+            titlebar.style.padding = "1pt";
+            titlebar.style.display = "block";
+            titlebar.style.overflow = "hidden";
+            titlebar.class = "popup_titlebar";
+            { // Generate Title
+                // TODO: let
+                var heading = document.createElement('h2');
+                heading.style.position = "relative";
+                heading.style.float = "left";
+                heading.style.margin = "1pt";
+                heading.innerHTML = "Determine Turn Order";
+                titlebar.appendChild(heading);
+            }
+            { // Generate Close Button
+                // TODO: let
+                var close_button = document.createElement('div');
+                // TODO: Check if the popup is actually done before closing.
+                close_button.onclick = function(){popup.remove();};
+                close_button.style.position = "relative";
+                close_button.style.float = "right";
+                close_button.style.height = "42px";
+                close_button.style.width = "42px";
+
+                close_button.style.backgroundColor = "red";
+                titlebar.appendChild(close_button);
+            }
+            popup.appendChild(titlebar);
+        }
+        { // Generate Player Table
+            this._players._number_players = 0;
+            // TODO: let
+            var player_table = document.createElement('table');
+            
+            var head_row = player_table.insertRow(0);
+            
+            var labels = [head_row.insertCell(0), head_row.insertCell(1), head_row.insertCell(2)];
+            labels.forEach(function(i){
+                // Styling here.
+            });
+            
+            labels[0].innerHTML = "Player Names";
+            labels[1].innerHTML = "Roll";
+            labels[2].innerHTML = "Order";
+            
+            var current_players = [];
+            
+            peers.forEach(function(i){
+                if(active_ids.indexOf(i.id)==-1) return;
+                current_players.push(i);
+                var our_row = player_table.insertRow(current_players.length);
+                
+                var fields = [our_row.insertCell(0), our_row.insertCell(1), our_row.insertCell(2)];
+                fields.forEach(function(i){
+                    i.style.backgroundColor = this._getActiveColor();
+                }, this);
+                
+                fields[0].innerHTML = i.name;
+                fields[1].innerHTML = "...";
+                fields[2].innerHTML = "...";
+                
+                this._number_players++;
+                
+                
+            }, this._players);
+            
+            popup.appendChild(player_table);
+            
+        }
+        
+        document.body.appendChild(popup);
+        
+    },
+
     "alert":function(a){alert(a);},
     
 };

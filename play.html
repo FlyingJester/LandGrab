@@ -52,7 +52,7 @@
     
     <div id="banner">
     <h1>Land Grab</h1>
-    <button onclick="TogetherJS(this); return false;">TogetherJS</button>
+    <button onclick="TogetherJS(this); return false;">Create New Game</button>
     <button onclick="toggleBoard(this);">Hide Board</button>
     </div>
     
@@ -96,9 +96,7 @@
     </div>
     <div id="debug" style="clear:left; padding:10pt;">
         <button onclick="LandGrab.CallFoul('Z');">Cry Wolf</button>
-        <button onclick="SomethingChange('Something');">Something</button>
-        <button onclick="SomethingChange('Something Else');">Something Else</button>
-        <button onclick="LandGrab.AskForPlayerLists();">Debug Player List</button>
+        <button onclick="LandGrab.View.rollForOrderPopup(LandGrab.peers.getAllPeers().concat([LandGrab.peers.Self]), LandGrab.active_players_id);">Try to Start Game?</button>
     </div>
 </body>
 </html>

@@ -74,7 +74,7 @@ TogetherJS.hub.on("observerChange", function(msg){
     if(LandGrab.authoritative && LandGrab.game_started){
             /* If we don't have their ID in active players (==-1), they should be observing (true).
                If we do have their ID in active players (!=-1), they should not be observing. (false) */
-        if(LandGrab.active_players_id.indexOf(LandGrab.peers.Self.id)==-1)==(msg.observing)){
+        if((LandGrab.active_players_id.indexOf(LandGrab.peers.Self.id)==-1)==(msg.observing)){
 
             // We know something is afoot (game logic error, network issue, dastardly client, etc).
             LandGrab.CallFoul(msg.clientId);
