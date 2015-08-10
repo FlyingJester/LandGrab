@@ -22,12 +22,23 @@ LandGrab.HTMLView = {
         },
     },
     
+    _clearAll:function(i){
+        while(i.childNodes.length)
+            i.childNodes[0].remove();
+    },
+
     clearPlayers:function(){
         this._players._number_players = 0;
-        var player_list = document.getElementById('player_list');
-        
-        while(player_list.childNodes.length)
-            player_list.childNodes[0].remove();
+        this.clearActivePlayers();
+        this.clearWatchingPlayers();
+    },
+    
+    clearWatchingPlayers:function(){
+        this._clearAll(document.getElementById('all_player_list'));
+    },
+    
+    clearActivePlayers:function(){
+        this._clearAll(document.getElementById('active_player_list'));
     },
     
     appendPlayer:function(name, observ){
@@ -46,8 +57,21 @@ LandGrab.HTMLView = {
             new_player.style.backgroundColor = this._players._getActiveColor();
         }
         
-        document.getElementById('player_list').appendChild(new_player);
+        document.getElementById('all_player_list').appendChild(new_player);
+        
     }, // appendPlayer
+    
+    setActivePlayers(players){
+        var player_list = document.getElementById('active_player_list');
+        players.forEach(function(i){
+            var new_player = document.createElement('li');
+            new_player.innerHTML = (typeof i == "string")?i:i.name;
+            new_player.style.backgroundColor = this._players._getActiveColor();
+            
+            player_list.appendChild(new_player);
+        
+        });
+    },
     
     // Private data for Dice
     _dice:{

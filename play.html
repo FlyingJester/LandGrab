@@ -75,9 +75,21 @@
         
     </div>
     
-    <div id="player_block" class="sidebar_block">
-    <h3>Players</h3>
-        <ul id="player_list">
+    <div class="player_block sidebar_block" id="players_active">
+    <h3>Active Players</h3>
+        <ul class="player_list" id="active_player_list">
+
+        </ul>
+        
+    <button onclick="LandGrab.RefreshPlayerNames();">Refresh Players</button>
+    <button onclick="LandGrab.SetSelfObserving(true);">Become Observer</button>
+    <button onclick="LandGrab.SetSelfObserving(false);">Become Active</button>
+
+    </div>
+    
+    <div class="player_block sidebar_block" id="players_watching">
+    <h3>People Watching</h3>
+        <ul class="player_list" id="all_player_list">
 
         </ul>
         

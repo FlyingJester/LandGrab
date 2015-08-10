@@ -12,15 +12,15 @@ body {
     width:160px;
 }
 
-#player_block{
+.player_block{
 
 }
 
-#player_block h3 {
+.player_block h3 {
     padding-left:10pt;
 }
 
-#player_list{
+.player_list{
     background-color:#CB934E;
     color:#644826;
     overflow-y:auto;
@@ -28,9 +28,9 @@ body {
     list-style-type:none;
     height:200px;
     padding:4pt;
-    text-alignment:left;
+    text-align:left;
 }
 
-#player_list li{
-    text-alignment:left;
+.player_list li{
+    text-align:left;
 }
