@@ -1,13 +1,6 @@
 if(typeof LandGrab=="undefined")
     LandGrab = {};
 
-// Layout for the View object.
-LandGrab.NullView = {
-    clearPlayers:function(){},
-    appendPlayer:function(name, observ){},
-    setDice:function(D1, D2){}
-};
-
 LandGrab.HTMLView = {
     
     _players:{
@@ -359,6 +352,21 @@ LandGrab.HTMLView = {
 
     "alert":function(a){alert(a);},
     
+    enableDice:function(on_roll, z){
+        var dice_button = document.getElementById('dice_button');
+        dice_button.disabled = false;
+        
+        if(typeof on_roll == "function){
+            on_roll.onclick = function(){
+                on_roll(z);
+                dice_button.disabled = true;
+            }
+        }
+    }
+    
+    disableDice:function(){
+        document.getElementById('dice_button').disabled = true;
+    }
 };
 
 LandGrab.View = LandGrab.HTMLView;

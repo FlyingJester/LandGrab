@@ -1,6 +1,26 @@
 if(typeof LandGrab=="undefined")
     LandGrab = {};
 
+LandGrab.Player = function(ID){
+    this.clientID = ID;
+    this.board = null;
+
+    this.position = 0;
+    this.cash = 0;
+
+    // TODO: For testing purposes only.
+    this.score = 0;
+
+}
+
+LandGrab.prototype.move = function(n){
+    this.position += n;
+    
+    this.score += (this.position/this.board.tiles.length)>>0;
+    this.position %= this.board.tiles.length;
+    
+}
+
 // clientID of players who are not observers. 
 LandGrab.active_players_id = [];
 LandGrab.game_started = false;
